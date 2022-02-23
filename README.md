@@ -1,7 +1,6 @@
 # git-scripts-nvim
 
-Asynchronous git commit/push and git pull keymaps. Optional asynchronous git\
-commit on save.
+Automated git commit and git pull keymaps. Optional asynchronous git commit on save.
 
 ## Installation
 
