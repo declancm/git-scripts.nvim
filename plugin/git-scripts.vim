@@ -6,20 +6,9 @@ let g:gitscripts_loaded = 1
 
 " INITIALIZING:
 
-" check if ~/git-scripts exists and if not, clone to that folder
-if !exists("g:gitscripts_location") || g:gitscripts_location == ""
-    let g:gitscripts_location = expand("~/git-scripts")
-    if !isdirectory(g:gitscripts_location)
-        silent execute("!git clone https://github.com/declancm/git-scripts.git ~/git-scripts")
-    endif
-    silent execute("!chmod +x ~/git-scripts/*.sh")
-elseif g:gitscripts_location != expand("~/git-scripts")
-	let g:gitscripts_location = expand(g:gitscripts_location)
-    if !isdirectory(g:gitscripts_location)
-        silent execute("!git clone https://github.com/declancm/git-scripts.git " . g:gitscripts_location)
-    endif
-    silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
-endif
+let g:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'
+" let g:gitscripts_location = fnamemodify(resolve(expand('<sfile>:p')), ':h')
+silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
 
 " Create a global variable to be used by the lua scripts.
 let $GITSCRIPTS_LOCATION = g:gitscripts_location

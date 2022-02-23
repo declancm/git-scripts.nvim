@@ -7,7 +7,7 @@ function M.async_commit(directory)
   local job = require("plenary.job")
   job
     :new({
-      command = scriptsLocation .. "/commit-silent.sh",
+      command = scriptsLocation .. "/commit.sh",
       cwd = directory,
       on_exit = function(j, exit_code)
         if exit_code ~= 0 then
@@ -45,7 +45,7 @@ function M.async_pull(directory)
   local job = require("plenary.job")
   job
     :new({
-      command = scriptsLocation .. "/pull-silent.sh",
+      command = scriptsLocation .. "/pull.sh",
       cwd = directory,
       on_exit = function(j, exit_code)
         if exit_code ~= 0 then
@@ -58,12 +58,12 @@ end
 
 -- Git commit.
 function M.git_commit()
-  vim.cmd([[exec "!source " . $GITSCRIPTS_LOCATION . "/commit-silent.sh"]])
+  vim.cmd([[exec "!source " . $GITSCRIPTS_LOCATION . "/commit.sh"]])
 end
 
 -- Git pull.
 function M.git_pull()
-  vim.cmd([[exec "!source " . $GITSCRIPTS_LOCATION . "/pull-silent.sh"]])
+  vim.cmd([[exec "!source " . $GITSCRIPTS_LOCATION . "/pull.sh"]])
 end
 
 return M

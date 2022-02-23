@@ -1,13 +1,11 @@
 # git-scripts-nvim
 
-Asynchronously automatically git commit/push and git pull.
-
-This plugin is a neovim integration of my git-scripts repo. The scripts will be\
-installed at `~/git-scripts`, unless a custom location is chosen.
+Asynchronous git commit/push and git pull keymaps. Optional asynchronous git\
+commit on save.
 
 ## Installation
 
-Install with your favorite package manager.
+Install with your favorite package manager. Plenary is required.
 
 ### Packer
 
@@ -18,66 +16,32 @@ use {
 }
 ```
 
-## Usage
+## Commands
 
-### Commands
-
-- `:Commit` - automated git commit and push which generates a commit message with\
-  the current date and time in UTC format.
-- `:Pull` - automated git pull.
-- `:CommitS` - a silent version of `:Commit` which doesn't generate an output except\
-  when errors occur.
-- `:PullS` - a silent version of `:Pull` which doesn't generate an output except\
-  when errors occur.
-- `:AutoCommit` - activate git commiting on save within the current active vim session.
-
-To activate automatic git commiting on save for every vim session:
+To activate automatic asynchronous git commiting on save for every vim session, set:
 
 ```lua
--- Automatic commit on save:
 vim.g.commit_on_save = 1
 ```
 
-### Default Mappings
-
-- `<leader>gc`\
-  Equivalent to using the `:Commit` command.
-- `<leader>gp`\
-  Equivalent to using the `:Pull` command.
-- `<leader>gac`\
-  Equivalent to using the `:AutoCommit` command.
-
-### Custom Mappings
-
-First disable the default mappings:
+## Default Keymaps
 
 ```lua
--- No git-scripts-nvim default keymaps
+local opts = { noremap = true, silent = true }
+-- Git commit and push with full error information on failure.
+vim.api.nvim_set_keymap('n', '<leader>gc', '<Cmd>lua require("git-scripts").git_commit()<CR>', opts)
+-- Git pull with full error information on failure.
+vim.api.nvim_set_keymap('n', '<leader>gp', '<Cmd>lua require("git-scripts").git_pull()<CR>', opts)
+-- Git commit and push asynchronously. Displays an error message on failure.
+vim.api.nvim_set_keymap('n', '<leader>ac', '<Cmd>lua require("git-scripts").async_commit()<CR>', opts)
+-- Git pull asynchronously. Displays an error message on failure.
+vim.api.nvim_set_keymap('n', '<leader>ap', '<Cmd>lua require("git-scripts").async_pull()<CR>', opts)
+-- Activates git commit and push asynchronously when buffer is saved for current session.
+vim.api.nvim_set_keymap('n', '<leader>aac', '<Cmd>lua require("git-scripts").auto_commit()<CR>', opts)
+```
+
+To disable the default keyamps, set:
+
+```lua
 vim.g.gitscripts_no_defaults = 1
-```
-
-Then add your keymaps:
-
-```lua
-local opts = { nnoremap = true, silent = true }
-
--- Asynchronously git commit.
-vim.api.nvim_set_keymap("n", "<leader>gc", ":AsyncCommit<CR>", opts)
-
--- Asynchronously git pull.
-vim.api.nvim_set_keymap("n", "<leader>gp", ":AsyncPull<CR>", opts)
-
--- Automatic asynchronous commit on save.
-vim.api.nvim_set_keymap("n", "<leader>gac", ":AutoAsyncCommit<CR>", opts)
-```
-
-Source your config file and restart vim for the changes to take effect.
-
-### Custom Git-Scripts Location
-
-By default, `https://github.com/git-scripts.git` is cloned at `~/git-scripts`.\
-This can be customized by setting the variable `g:gitscripts_location`:
-
-```lua
-vim.g.gitscripts_location = "~/.config/nvim/git-scripts"
 ```
