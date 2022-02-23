@@ -18,8 +18,8 @@ if !exists("g:commit_on_save")
 elseif g:commit_on_save == 1
     augroup auto_git_commit
         autocmd!
-        autocmd BufWritePost * lua AsyncGitCommit()
-        echom "WARNING: Automatic git commit on save is active."
+        autocmd BufWritePost * lua require("git-scripts").async_commit_autocmd()
+        autocmd FileType * if g:commit_on_save == 1 | echom "WARNING: Automatic git commit on save is active. Use 'let g:commit_on_save = 0' to disable." | endif
     augroup END
 endif
 
