@@ -7,7 +7,6 @@ let g:gitscripts_loaded = 1
 " INITIALIZING:
 
 let g:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'
-" let g:gitscripts_location = fnamemodify(resolve(expand('<sfile>:p')), ':h')
 silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
 
 " Create a global variable to be used by the lua scripts.
