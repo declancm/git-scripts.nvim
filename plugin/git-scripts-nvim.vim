@@ -21,6 +21,8 @@ elseif g:gitscripts_location != expand("~/git-scripts")
     silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
 endif
 
+lua require()
+
 let $GITSCRIPTS_LOCATION = g:gitscripts_location
 
 let g:auto_commit_enabled = 0
