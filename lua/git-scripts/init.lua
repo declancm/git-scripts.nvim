@@ -2,8 +2,8 @@ local M = {}
 
 -- Asynchronous git commit.
 function M.async_commit(directory)
-  directory = directory or vim.fn.getcwd()
-  scriptsLocation = os.getenv("GITSCRIPTS_LOCATION")
+  local directory = directory or vim.fn.getcwd()
+  local scriptsLocation = os.getenv("GITSCRIPTS_LOCATION")
   local job = require("plenary.job")
   job
     :new({
@@ -19,13 +19,13 @@ function M.async_commit(directory)
 end
 
 -- Automatic asynchronous git commit on save.
-function M.auto_commit(directory)
+function M.auto_commit()
   if vim.g.auto_commit_enabled ~= 1 then
     if vim.g.commit_on_save ~= 1 then
       vim.cmd([[
       augroup auto_git_commit
         autocmd!
-        autocmd BufWritePost * lua AsyncGitCommit()
+        autocmd BufWritePost * lua require("git-scripts").async_commit()
       augroup END
       ]])
       print("Automatic git commit on save was activated for this session.")
@@ -40,8 +40,8 @@ end
 
 -- Asynchronous git pull.
 function M.async_pull(directory)
-  directory = directory or vim.fn.getcwd()
-  scriptsLocation = os.getenv("GITSCRIPTS_LOCATION")
+  local directory = directory or vim.fn.getcwd()
+  local scriptsLocation = os.getenv("GITSCRIPTS_LOCATION")
   local job = require("plenary.job")
   job
     :new({
