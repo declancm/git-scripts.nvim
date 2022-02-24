@@ -3,7 +3,7 @@
 Automated git commit and git pull keymaps. Optional asynchronous git commit on save.
 A message is generated for the commit which has the date and time (in UTC format).
 
-_Note: Look at the commits for this repo to see the plugin in action._
+__Note: Look at the commits for this repo to see the plugin in action.__
 
 ## Installation
 
@@ -20,39 +20,78 @@ use {
 
 ## Usage
 
-To activate automatic asynchronous git commiting on save for every vim session, set:
+### Functions List
 
 ```lua
-vim.g.commit_on_save = 1
-```
+local scripts = require("git-scripts")
 
-This will push a git commit with a generated message containing the current date\
-and time (in UTC format), every time the buffer is saved while changes exist. This\
-occurs asynchronously in the background for maximum convenience.
+-- Git commit and push with full error information on failure.
+scripts.git_commit()
+
+-- Git pull with full error information on failure.
+scripts.git_pull()
+
+-- Git commit and push asynchronously. Notify on failure.
+scripts.async_commit()
+
+-- Git pull asynchronously. Notify on failure.
+scripts.async_pull()
+
+-- Toggle automatic asynchronous commit on save.
+scripts.toggle_auto_commit()
+
+-- Enable automatic asynchronous commit on save.
+scripts.enable_auto_commit()
+
+-- Enable automatic asynchronous commit on save.
+scripts.disable_auto_commit()
+```
 
 ### Default Keymaps
 
 ```lua
 local opts = { noremap = true, silent = true }
 
--- Git commit and push with full error information on failure.
-vim.api.nvim_set_keymap('n', '<leader>gc', '<Cmd>lua require("git-scripts").git_commit()<CR>', opts)
-
--- Git pull with full error information on failure.
-vim.api.nvim_set_keymap('n', '<leader>gp', '<Cmd>lua require("git-scripts").git_pull()<CR>', opts)
-
--- Git commit and push asynchronously. Displays an error message on failure.
-vim.api.nvim_set_keymap('n', '<leader>ac', '<Cmd>lua require("git-scripts").async_commit()<CR>', opts)
-
--- Git pull asynchronously. Displays an error message on failure.
-vim.api.nvim_set_keymap('n', '<leader>ap', '<Cmd>lua require("git-scripts").async_pull()<CR>', opts)
-
--- Activates git commit and push asynchronously when buffer is saved for only the current session.
-vim.api.nvim_set_keymap('n', '<leader>aac', '<Cmd>lua require("git-scripts").auto_commit()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gc', '<Cmd>lua require("git-scripts").async_commit()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gp', '<Cmd>lua require("git-scripts").async_pull()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>tac', '<Cmd>lua require("git-scripts").toggle_auto_commit()<CR>', opts)
 ```
 
-To disable the default keyamps, set:
+To disable the default keyamps, add to your vimrc:
 
 ```lua
+-- init.lua
 vim.g.gitscripts_no_defaults = 1
 ```
+
+```vim
+" init.vim
+let g:gitscripts_no_defaults = 1
+```
+
+### Commit On Save
+
+To enable automatic asynchronous git commiting on save for every vim session,
+add to your vimrc:
+
+```lua
+-- init.lua
+vim.g.commit_on_save = 1
+```
+
+```vim
+" init.vim
+let g:commit_on_save = 1
+```
+
+This will push a git commit with a generated message containing the current date\
+and time (in UTC format), every time the buffer is saved while changes exist. This\
+occurs asynchronously in the background for maximum convenience.
+
+To disable for the current session, either use the default keymap `<leader>tac`\
+ to toggle, or enter the following command:
+
+```vim
+let g:commit_on_save = 0
+```
+

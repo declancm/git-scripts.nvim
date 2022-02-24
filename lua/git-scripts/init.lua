@@ -36,6 +36,23 @@ function M.async_pull(directory)
     :start()
 end
 
+-- Toggle automatic asynchronous git commit on save.
+function M.toggle_auto_commit()
+  if vim.g.commit_on_save ~= 1 then
+    vim.cmd([[
+    augroup auto_git_commit
+      autocmd!
+      autocmd BufWritePost * lua require("git-scripts").auto_commit()
+    augroup END
+    ]])
+    vim.g.commit_on_save = 1
+    print("Commit on save is enabled.")
+  else
+    vim.g.commit_on_save = 0
+    print("Commit on save is disabled.")
+  end
+end
+
 -- Automatic asynchronous git commit on save.
 function M.enable_auto_commit()
   if vim.g.commit_on_save ~= 1 then
