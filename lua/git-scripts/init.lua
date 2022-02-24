@@ -1,5 +1,7 @@
 local M = {}
 
+-- TODO get fugitive commit and pull working.
+
 -- -- Vim fugitive commit.
 -- function M.fugitive_commit(commitMessage)
 --   -- Set the commit message.
@@ -120,9 +122,9 @@ function M.enable_auto_commit()
         augroup END
     endif
     ]]
-    print 'Commit on save was activated for this session.'
+    print 'Commit on save was enabled for this session.'
   else
-    print 'Commit on save has already been activated.'
+    print 'Commit on save has already been enabled.'
   end
 end
 
@@ -132,7 +134,7 @@ function M.disable_auto_commit()
     vim.g.commit_on_save = 0
     print 'Commit on save was disabled for this session.'
   else
-    print 'Commit on save was already disabled for this session.'
+    print 'Commit on save was already disabled.'
   end
 end
 

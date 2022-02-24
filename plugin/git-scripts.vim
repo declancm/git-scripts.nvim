@@ -6,7 +6,10 @@ let g:loaded_gitscripts = 1
 
 " INITIALIZING:
 
-" TODO check that bash is installed and not using windows.
+if has('win32')
+    echom "A unix system is required for this plugin :(. Have you tried using WSL?"
+    finish
+endif
 
 let g:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'
 silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
