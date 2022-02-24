@@ -30,10 +30,7 @@ if !exists("g:gitscripts_no_defaults")
     let g:gitscripts_no_defaults = 0
 endif
 if g:gitscripts_no_defaults != 1
-    nnoremap <silent> <unique> <leader>gc <Cmd>lua require("git-scripts").git_commit()<CR>
-    nnoremap <silent> <unique> <leader>gp <Cmd>lua require("git-scripts").git_pull()<CR>
-    nnoremap <silent> <unique> <leader>ac <Cmd>lua require("git-scripts").async_commit()<CR>
-    nnoremap <silent> <unique> <leader>ap <Cmd>lua require("git-scripts").async_pull()<CR>
-    nnoremap <silent> <unique> <leader>eac <Cmd>lua require("git-scripts").enable_auto_commit()<CR>
-    nnoremap <silent> <unique> <leader>dac <Cmd>lua require("git-scripts").disable_auto_commit()<CR>
+    nnoremap <silent> <unique> <leader>gc <Cmd>lua require("git-scripts").async_commit()<CR>
+    nnoremap <silent> <unique> <leader>gp <Cmd>lua require("git-scripts").async_pull()<CR>
+    nnoremap <silent> <unique> <leader>tac <Cmd>lua require("git-scripts").toggle_auto_commit()<CR>
 endif
