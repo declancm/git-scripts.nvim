@@ -4,7 +4,6 @@ local M = {}
 function M.async_commit(directory)
   local directory = directory or vim.fn.getcwd()
   local scriptsLocation = os.getenv("GITSCRIPTS_LOCATION")
-  -- vim.cmd([[silent exec "normal! wa"]])
   local job = require("plenary.job")
   job
     :new({
@@ -88,7 +87,6 @@ end
 
 -- Asynchronous git commit when commit_on_save is enabled.
 function M.auto_commit()
-  -- vim.cmd([[silent exec "normal! wa"]])
   if vim.g.commit_on_save == 1 then
     require("git-scripts").async_commit()
   end
