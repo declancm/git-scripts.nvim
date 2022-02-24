@@ -18,13 +18,13 @@ let $GITSCRIPTS_LOCATION = g:gitscripts_location
 if !exists("g:commit_on_save")
     let g:commit_on_save = 0
 elseif g:commit_on_save == 1
-    command! DisableCommit lua require("git-scripts").disable_auto_commit()
     augroup auto_git_commit
         autocmd!
         autocmd BufWritePost * lua require("git-scripts").auto_commit()
         autocmd FileType * if g:commit_on_save == 1 | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
     augroup END
 endif
+command! DisableCommit lua require("git-scripts").disable_auto_commit()
 
 
 " KEYMAPS:
