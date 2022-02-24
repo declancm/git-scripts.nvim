@@ -1,7 +1,8 @@
 # git-scripts-nvim
 
-Automated git commit and git pull keymaps. Optional asynchronous git commit on save.
-A message is generated for the commit which has the date and time (in UTC format).
+Automated git commit and git pull keymaps. Optional asynchronous git commit on\
+save. A message is generated for the commit which has the date and time (in UTC\
+format).
 
 __Note: Look at the commits for this repo to see the plugin in action.__
 
@@ -13,9 +14,16 @@ Install with your favorite package manager. Plenary is required.
 
 ```lua
 use {
-  "declancm/git-scripts-vim",
-  requires = "nvim-lua/plenary.nvim",
+  'declancm/git-scripts.nvim',
+  requires = 'nvim-lua/plenary.nvim',
 }
+```
+
+### Vim-Plug
+
+```vim
+Plug 'nvim-lua/plenary.nvim'
+Plug 'declancm/git-scripts.nvim'
 ```
 
 ## Usage
@@ -43,7 +51,7 @@ scripts.toggle_auto_commit()
 -- Enable automatic asynchronous commit on save.
 scripts.enable_auto_commit()
 
--- Enable automatic asynchronous commit on save.
+-- Disable automatic asynchronous commit on save.
 scripts.disable_auto_commit()
 ```
 
@@ -85,11 +93,11 @@ let g:commit_on_save = 1
 ```
 
 This will push a git commit with a generated message containing the current date\
-and time (in UTC format), every time the buffer is saved while changes exist. This\
-occurs asynchronously in the background for maximum convenience.
+and time (in UTC format), every time the buffer is saved while changes exist.\
+This occurs asynchronously in the background for maximum convenience.
 
 To disable for the current session, either use the default keymap `<leader>tac`\
- to toggle, or enter the following command:
+ to toggle, or enter:
 
 ```vim
 let g:commit_on_save = 0

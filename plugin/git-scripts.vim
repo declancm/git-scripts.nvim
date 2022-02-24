@@ -6,6 +6,8 @@ let g:loaded_gitscripts = 1
 
 " INITIALIZING:
 
+" TODO check that bash is installed and not using windows.
+
 let g:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'
 silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
 
