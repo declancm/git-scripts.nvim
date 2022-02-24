@@ -60,8 +60,8 @@ end
 -- Enable automatic asynchronous git commit on save.
 function M.enable_auto_commit()
   if vim.g.commit_on_save ~= 1 then
-    vim.cmd([[
     vim.g.commit_on_save = 1
+    vim.cmd([[
     if !exists('#auto_git_commit#BufWritePost')
         augroup auto_git_commit
             autocmd!

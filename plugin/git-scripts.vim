@@ -24,8 +24,8 @@ elseif g:commit_on_save == 1
         autocmd BufEnter * if g:commit_on_save == 1 | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
     augroup END
 endif
-command! DisableCommit lua require("git-scripts").disable_auto_commit()
 
+command! DisableCommit lua require("git-scripts").disable_auto_commit()
 
 " KEYMAPS:
 
