@@ -3,11 +3,12 @@ local M = {}
 -- Asynchronous git commit.
 function M.async_commit(directory)
   local directory = directory or vim.fn.getcwd()
-  local scriptsLocation = os.getenv 'GITSCRIPTS_LOCATION'
+  -- local scriptsLocation = os.getenv 'GITSCRIPTS_LOCATION'
+  -- local scriptsLocation = vim.g.gitscripts_location
   local job = require 'plenary.job'
   job
     :new({
-      command = scriptsLocation .. '/commit.sh',
+      command = vim.g.gitscripts_location .. '/commit.sh',
       cwd = directory,
       on_exit = function(j, exit_code)
         if exit_code ~= 0 then
@@ -21,11 +22,12 @@ end
 -- Asynchronous git pull.
 function M.async_pull(directory)
   local directory = directory or vim.fn.getcwd()
-  local scriptsLocation = os.getenv 'GITSCRIPTS_LOCATION'
+  -- local scriptsLocation = os.getenv 'GITSCRIPTS_LOCATION'
+  -- local scriptsLocation = vim.g.gitscripts_location
   local job = require 'plenary.job'
   job
     :new({
-      command = scriptsLocation .. '/pull.sh',
+      command = vim.g.gitscripts_location .. '/pull.sh',
       cwd = directory,
       on_exit = function(j, exit_code)
         if exit_code ~= 0 then
@@ -94,12 +96,14 @@ end
 
 -- Git commit.
 function M.git_commit()
-  vim.cmd [[exec "!source " . $GITSCRIPTS_LOCATION . "/commit.sh"]]
+  -- vim.cmd [[exec "!source " . $GITSCRIPTS_LOCATION . "/commit.sh"]]
+  vim.cmd [[exec "!source " . g:gitscripts_location . "/commit.sh"]]
 end
 
 -- Git pull.
 function M.git_pull()
-  vim.cmd [[exec "!source " . $GITSCRIPTS_LOCATION . "/pull.sh"]]
+  -- vim.cmd [[exec "!source " . $GITSCRIPTS_LOCATION . "/pull.sh"]]
+  vim.cmd [[exec "!source " . g:gitscripts_location . "/pull.sh"]]
 end
 
 -- TODO get fugitive commit and pull working.
