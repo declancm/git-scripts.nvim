@@ -3,8 +3,6 @@ local M = {}
 -- Asynchronous git commit.
 function M.async_commit(directory)
   local directory = directory or vim.fn.getcwd()
-  -- local scriptsLocation = os.getenv 'GITSCRIPTS_LOCATION'
-  -- local scriptsLocation = vim.g.gitscripts_location
   local job = require 'plenary.job'
   job
     :new({
@@ -22,8 +20,6 @@ end
 -- Asynchronous git pull.
 function M.async_pull(directory)
   local directory = directory or vim.fn.getcwd()
-  -- local scriptsLocation = os.getenv 'GITSCRIPTS_LOCATION'
-  -- local scriptsLocation = vim.g.gitscripts_location
   local job = require 'plenary.job'
   job
     :new({
@@ -47,7 +43,8 @@ function M.toggle_auto_commit()
         augroup auto_git_commit
             autocmd!
             autocmd BufWritePost * lua require("git-scripts").auto_commit()
-            autocmd BufEnter * if g:commit_on_save == 1 | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
+            autocmd BufEnter * if g:commit_on_save == 1 && g:commit_no_warnings == 0
+            \ | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
         augroup END
     endif
     ]]
@@ -67,7 +64,8 @@ function M.enable_auto_commit()
         augroup auto_git_commit
             autocmd!
             autocmd BufWritePost * lua require("git-scripts").auto_commit()
-            autocmd BufEnter * if g:commit_on_save == 1 | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
+            autocmd BufEnter * if g:commit_on_save == 1 && g:commit_no_warnings == 0
+            \ | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
         augroup END
     endif
     ]]
@@ -96,13 +94,11 @@ end
 
 -- Git commit.
 function M.git_commit()
-  -- vim.cmd [[exec "!source " . $GITSCRIPTS_LOCATION . "/commit.sh"]]
   vim.cmd [[exec "!source " . g:gitscripts_location . "/commit.sh"]]
 end
 
 -- Git pull.
 function M.git_pull()
-  -- vim.cmd [[exec "!source " . $GITSCRIPTS_LOCATION . "/pull.sh"]]
   vim.cmd [[exec "!source " . g:gitscripts_location . "/pull.sh"]]
 end
 

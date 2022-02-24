@@ -12,8 +12,6 @@ if has('win32')
 endif
 
 let g:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'
-" Create a global variable to be used by the lua scripts.
-" let $GITSCRIPTS_LOCATION = g:gitscripts_location
 " Make the scripts executable.
 silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
 
@@ -29,6 +27,11 @@ elseif g:commit_on_save == 1
 endif
 
 command! DisableCommit lua require("git-scripts").disable_auto_commit()
+
+" Disable warnings.
+if !exists("g:commit_no_warnings")
+    let g:commit_no_warnings = 0
+endif
 
 " KEYMAPS:
 
