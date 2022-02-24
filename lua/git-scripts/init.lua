@@ -54,7 +54,7 @@ function M.toggle_auto_commit()
   end
 end
 
--- Automatic asynchronous git commit on save.
+-- Enable automatic asynchronous git commit on save.
 function M.enable_auto_commit()
   if vim.g.commit_on_save ~= 1 then
     vim.cmd([[
@@ -70,6 +70,7 @@ function M.enable_auto_commit()
   end
 end
 
+-- Disable automatic asynchronous git commit on save.
 function M.disable_auto_commit()
   if vim.g.commit_on_save ~= 0 then
     vim.g.commit_on_save = 0
