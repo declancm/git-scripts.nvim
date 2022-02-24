@@ -97,9 +97,4 @@ and time (in UTC format), every time the buffer is saved while changes exist.\
 This occurs asynchronously in the background for maximum convenience.
 
 To disable for the current session, either use the default keymap `<leader>tac`\
- to toggle, or enter:
-
-```vim
-let g:commit_on_save = 0
-```
-
+ to toggle, or enter the command `:DisableCommit`.
