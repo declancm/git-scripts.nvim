@@ -62,19 +62,19 @@ function M.enable_auto_commit()
         autocmd BufWritePost * lua require("git-scripts").auto_commit()
     augroup END
     ]])
-    print("Automatic git commit on save was activated for this session.")
+    print("Commit on save was activated for this session.")
     vim.g.commit_on_save = 1
   else
-    print("Automatic git commit on save has already been activated.")
+    print("Commit on save has already been activated.")
   end
 end
 
 function M.disable_auto_commit()
   if vim.g.commit_on_save ~= 0 then
     vim.g.commit_on_save = 0
-    print("Automatic git commit on save was disabled for this session.")
+    print("Commit on save was disabled for this session.")
   else
-    print("Automatic git commit on save was already disabled for this session.")
+    print("Commit on save was already disabled for this session.")
   end
 end
 
