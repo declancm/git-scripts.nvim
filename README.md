@@ -8,7 +8,8 @@ __Note: Look at the commits for this repo to see the plugin in action.__
 
 ## Installation
 
-Install with your favorite package manager. Plenary is required.
+Install with your favorite package manager. Plenary is needed for the\
+asynchronous functions.
 
 ### Packer
 
@@ -93,7 +94,7 @@ let g:commit_on_save = 1
 ```
 
 This will push a git commit with a generated message containing the current date\
-and time (in UTC format), every time the buffer is saved while changes exist.\
+and time in UTC format, every time the buffer is saved while changes exist.\
 This occurs asynchronously in the background for maximum convenience.
 
 To disable for the current session, either use the default keymap `<leader>tac`\
