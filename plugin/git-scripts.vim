@@ -11,11 +11,11 @@ if has('win32')
     finish
 endif
 
-let g:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'
+let s:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'
 " Create a global variable to be used by the lua scripts.
-let $GITSCRIPTS_LOCATION = g:gitscripts_location
+let $GITSCRIPTS_LOCATION = s:gitscripts_location
 " Make the scripts executable.
-silent execute("!chmod +x " . g:gitscripts_location . "/*.sh")
+silent execute("!chmod +x " . s:gitscripts_location . "/*.sh")
 
 " Commit when the buffer is saved.
 if !exists("g:commit_on_save")
