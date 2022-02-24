@@ -2,7 +2,7 @@
 if exists("g:loaded_gitscripts")
     finish
 endif
-let g:gitscripts_loaded = 1
+let g:loaded_gitscripts = 1
 
 " INITIALIZING:
 
@@ -18,8 +18,8 @@ if !exists("g:commit_on_save")
 elseif g:commit_on_save == 1
     augroup auto_git_commit
         autocmd!
-        autocmd BufWritePost * lua require("git-scripts").async_commit_autocmd()
-        autocmd FileType * if g:commit_on_save == 1 | echom "WARNING: Automatic git commit on save is active. Use 'let g:commit_on_save = 0' to disable." | endif
+        autocmd BufWritePost * lua require("git-scripts").auto_commit()
+        autocmd FileType * if g:commit_on_save == 1 | echom "WARNING: Automatic git commit on save is active. Enter 'let g:commit_on_save = 0' to disable." | endif
     augroup END
 endif
 
@@ -34,5 +34,6 @@ if g:gitscripts_no_defaults != 1
     nnoremap <silent> <unique> <leader>gp <Cmd>lua require("git-scripts").git_pull()<CR>
     nnoremap <silent> <unique> <leader>ac <Cmd>lua require("git-scripts").async_commit()<CR>
     nnoremap <silent> <unique> <leader>ap <Cmd>lua require("git-scripts").async_pull()<CR>
-    nnoremap <silent> <unique> <leader>aac <Cmd>lua require("git-scripts").auto_commit()<CR>
+    nnoremap <silent> <unique> <leader>eac <Cmd>lua require("git-scripts").enable_auto_commit()<CR>
+    nnoremap <silent> <unique> <leader>dac <Cmd>lua require("git-scripts").disable_auto_commit()<CR>
 endif
