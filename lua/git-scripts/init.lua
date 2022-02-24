@@ -1,58 +1,5 @@
 local M = {}
 
--- TODO get fugitive commit and pull working.
-
--- -- Vim fugitive commit.
--- function M.fugitive_commit(commitMessage)
---   -- Set the commit message.
---   -- local defaultMessage = "Auto Commit: " .. os.date("!%c") .. " UTC"
---   local defaultMessage = 'auto commit @ ' .. os.date '!%Y-%m-%d %H:%M:%S' .. ' UTC'
---   local commitMessage = commitMessage or defaultMessage
---   -- Check if actually in a git directory.
---   local gitDirectory = vim.fn.FugitiveGitDir()
---   if gitDirectory == '' then
---     return 1
---   end
---   -- Get the branch name.
---   local gitBranch = vim.fn.FugitiveHead()
---   if gitBranch == '' then
---     return 1
---   end
---   -- Get the remote url.
---   local gitRemote = vim.fn.FugitiveRemoteUrl()
---   if gitRemote == '' then
---     return 1
---   end
---   -- Execute git add.
---   vim.fn.FugitiveExecute('add', gitDirectory)
---   -- Execute git commit.
---   -- vim.fn.FugitiveExecute("commit", "-a", "-m", commitMessage)
---   print(vim.fn.FugitiveExecute('commit', '-a', '-m', commitMessage).stdout)
---   -- Execute git push.
---   -- vim.fn.FugitiveExecute("push", gitRemote, gitBranch)
---   print(vim.fn.FugitiveExecute('push', gitRemote, gitBranch).stdout)
--- end
-
--- -- Vim fugitive pull.
--- function M.fugitive_pull(commitMessage)
---   -- Check if actually in a git directory.
---   if vim.fn.FugitiveGitDir() == '' then
---     return 1
---   end
---   -- Get the branch name.
---   local gitBranch = vim.fn.FugitiveHead()
---   if gitBranch == '' then
---     return 1
---   end
---   -- Get the remote url.
---   local gitRemote = vim.fn.FugitiveRemoteUrl()
---   if gitRemote == '' then
---     return 1
---   end
---   -- Execute git pull.
---   vim.fn.FugitiveExecute('pull', gitRemote, gitBranch)
--- end
-
 -- Asynchronous git commit.
 function M.async_commit(directory)
   local directory = directory or vim.fn.getcwd()
@@ -154,5 +101,58 @@ end
 function M.git_pull()
   vim.cmd [[exec "!source " . $GITSCRIPTS_LOCATION . "/pull.sh"]]
 end
+
+-- TODO get fugitive commit and pull working.
+
+-- -- Vim fugitive commit.
+-- function M.fugitive_commit(commitMessage)
+--   -- Set the commit message.
+--   -- local defaultMessage = "Auto Commit: " .. os.date("!%c") .. " UTC"
+--   local defaultMessage = 'auto commit @ ' .. os.date '!%Y-%m-%d %H:%M:%S' .. ' UTC'
+--   local commitMessage = commitMessage or defaultMessage
+--   -- Check if actually in a git directory.
+--   local gitDirectory = vim.fn.FugitiveGitDir()
+--   if gitDirectory == '' then
+--     return 1
+--   end
+--   -- Get the branch name.
+--   local gitBranch = vim.fn.FugitiveHead()
+--   if gitBranch == '' then
+--     return 1
+--   end
+--   -- Get the remote url.
+--   local gitRemote = vim.fn.FugitiveRemoteUrl()
+--   if gitRemote == '' then
+--     return 1
+--   end
+--   -- Execute git add.
+--   vim.fn.FugitiveExecute('add', gitDirectory)
+--   -- Execute git commit.
+--   -- vim.fn.FugitiveExecute("commit", "-a", "-m", commitMessage)
+--   print(vim.fn.FugitiveExecute('commit', '-a', '-m', commitMessage).stdout)
+--   -- Execute git push.
+--   -- vim.fn.FugitiveExecute("push", gitRemote, gitBranch)
+--   print(vim.fn.FugitiveExecute('push', gitRemote, gitBranch).stdout)
+-- end
+
+-- -- Vim fugitive pull.
+-- function M.fugitive_pull(commitMessage)
+--   -- Check if actually in a git directory.
+--   if vim.fn.FugitiveGitDir() == '' then
+--     return 1
+--   end
+--   -- Get the branch name.
+--   local gitBranch = vim.fn.FugitiveHead()
+--   if gitBranch == '' then
+--     return 1
+--   end
+--   -- Get the remote url.
+--   local gitRemote = vim.fn.FugitiveRemoteUrl()
+--   if gitRemote == '' then
+--     return 1
+--   end
+--   -- Execute git pull.
+--   vim.fn.FugitiveExecute('pull', gitRemote, gitBranch)
+-- end
 
 return M
