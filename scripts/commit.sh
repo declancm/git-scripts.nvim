@@ -1,5 +1,5 @@
 # Created by Declan Mullen
-# Git repository can be found at: https://github.com/declancm/git-commit-script
+# Git repository can be found at: https://github.com/declancm/git-scripts.nvim
 
 #!/usr/bin/env bash
 
@@ -10,8 +10,7 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
     gitRemote=$(git remote)
     git add .
     wait
-    # git commit -a -m "auto commit @ `date -u +'%Y-%m-%d %H:%M:%S'` UTC"
-    if [ $# -ne 0 ] && [ -z "$1" ]
+    if [ $# -eq 0 ] || [ -z "$1" ]
     then
         git commit -a -m "Auto Commit: `date -u +'%b %d %H:%M:%S %Y'` UTC"
     else
