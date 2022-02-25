@@ -71,7 +71,7 @@ function M.enable_auto_commit()
         augroup END
     endif
     ]]
-    print 'Commit on save was enabled for this session.'
+    print 'Commit on save is enabled.'
   else
     print 'Commit on save has already been enabled.'
   end
@@ -81,7 +81,7 @@ end
 function M.disable_auto_commit()
   if vim.g.commit_on_save ~= 0 then
     vim.g.commit_on_save = 0
-    print 'Commit on save was disabled for this session.'
+    print 'Commit on save is disabled.'
   else
     print 'Commit on save was already disabled.'
   end

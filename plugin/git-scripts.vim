@@ -1,4 +1,4 @@
-" Check if plugin is loaded.
+" Check if the plugin has already been loaded.
 if exists("g:loaded_gitscripts")
     finish
 endif

@@ -20,6 +20,6 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
     git push $gitRemote $gitBranch
     cd $OLDPWD
 else
-    printf "You are not inside a git repository."
+    printf "You are not inside a git repository.\n"
     exit 1
 fi
