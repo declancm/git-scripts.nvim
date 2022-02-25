@@ -32,28 +32,35 @@ Plug 'declancm/git-scripts.nvim'
 ### Functions List
 
 ```lua
-local scripts = require("git-scripts")
+-- Function Arguments
+
+-- message:     The commit message that will be used. The default value is:
+--              "Auto Commit: " .. os.date('!%b %d %H:%M:%S %Y') .. " UTC".
+--              An empty string ('') input will use the default value.
+
+-- directory:   The path for the directory in which the git commands will be
+--              executed. The default value is the current working directory.
 
 -- Git commit and push with full error information on failure.
-scripts.git_commit()
+require("git-scripts").git_commit(message)
 
 -- Git pull with full error information on failure.
-scripts.git_pull()
+require("git-scripts").git_pull()
 
 -- Git commit and push asynchronously. Notify on failure.
-scripts.async_commit()
+require("git-scripts").async_commit(message, directory)
 
 -- Git pull asynchronously. Notify on failure.
-scripts.async_pull()
+require("git-scripts").async_pull(directory)
 
 -- Toggle automatic asynchronous commit on save.
-scripts.toggle_auto_commit()
+require("git-scripts").toggle_auto_commit()
 
 -- Enable automatic asynchronous commit on save.
-scripts.enable_auto_commit()
+require("git-scripts").enable_auto_commit()
 
 -- Disable automatic asynchronous commit on save.
-scripts.disable_auto_commit()
+require("git-scripts").disable_auto_commit()
 ```
 
 ### Default Keymaps
@@ -66,6 +73,8 @@ vim.api.nvim_set_keymap('n', '<leader>gp', '<Cmd>lua require("git-scripts").asyn
 vim.api.nvim_set_keymap('n', '<leader>tac', '<Cmd>lua require("git-scripts").toggle_auto_commit()<CR>', opts)
 ```
 
+### Custom Keymaps
+
 To disable the default keyamps, add to your vimrc:
 
 ```lua
@@ -76,6 +85,16 @@ vim.g.gitscripts_no_defaults = 1
 ```vim
 " init.vim
 let g:gitscripts_no_defaults = 1
+```
+
+Then set your own keymaps in your vimrc:
+
+```lua
+local opts = { noremap = true, silent = true }
+
+vim.api.nvim_set_keymap('n', '<leader>gc', '<Cmd>lua require("git-scripts").git_commit("declancm " .. os.date("!%c"))<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>gp', '<Cmd>lua require("git-scripts").git_pull("declancm " .. os.date("!%c"))<CR>', opts)
+vim.api.nvim_set_keymap('n', '<leader>tac', '<Cmd>lua require("git-scripts").toggle_auto_commit("declancm " .. os.date("!%c"))<CR>', opts)
 ```
 
 ### Commit On Save
