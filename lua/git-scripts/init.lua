@@ -1,12 +1,14 @@
 local M = {}
 
 -- Asynchronous git commit.
-function M.async_commit(directory)
+function M.async_commit(message, directory)
+  local message = message or ''
   local directory = directory or vim.fn.getcwd()
   local job = require 'plenary.job'
   job
     :new({
       command = vim.g.gitscripts_location .. '/commit.sh',
+      args = { message },
       cwd = directory,
       on_exit = function(j, exit_code)
         if exit_code ~= 0 then
@@ -93,8 +95,14 @@ function M.auto_commit()
 end
 
 -- Git commit.
-function M.git_commit()
-  vim.cmd [[exec "!source " . g:gitscripts_location . "/commit.sh"]]
+function M.git_commit(message)
+  local message = message or ''
+  if message ~= '' then
+    vim.b.commitMessage = message
+    vim.cmd [[exec "!source " . g:gitscripts_location . "/commit.sh '" . b:commitMessage . "'"]]
+  else
+    vim.cmd [[exec "!source " . g:gitscripts_location . "/commit.sh"]]
+  end
 end
 
 -- Git pull.

@@ -86,11 +86,15 @@ add to your vimrc:
 ```lua
 -- init.lua
 vim.g.commit_on_save = 1
+-- To disable the 'commit on save enabled' warning shown on buffer entry:
+vim.g.commit_no_warnings = 1
 ```
 
 ```vim
 " init.vim
 let g:commit_on_save = 1
+" To disable the 'commit on save enabled' warning shown on buffer entry:
+let g:commit_no_warnings = 1
 ```
 
 This will push a git commit with a generated message containing the current date\

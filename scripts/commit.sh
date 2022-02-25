@@ -11,7 +11,12 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
     git add .
     wait
     # git commit -a -m "auto commit @ `date -u +'%Y-%m-%d %H:%M:%S'` UTC"
-    git commit -a -m "Auto Commit: `date -u +'%b %d %H:%M:%S %Y'` UTC"
+    if [ $# -ne 0 ] && [ -z "$1" ]
+    then
+        git commit -a -m "Auto Commit: `date -u +'%b %d %H:%M:%S %Y'` UTC"
+    else
+        git commit -a -m "$1"
+    fi
     wait
     git push $gitRemote $gitBranch
     cd $OLDPWD
