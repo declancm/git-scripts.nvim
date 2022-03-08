@@ -44,7 +44,7 @@ function M.toggle_auto_commit()
     if !exists('#auto_git_commit#BufWritePost')
         augroup auto_git_commit
             autocmd!
-            autocmd BufWritePost * lua require("git-scripts").auto_commit()
+            autocmd BufWritePost * lua require("git-scripts").autocmd_commit()
             autocmd BufEnter * if g:commit_on_save == 1 && g:commit_no_warnings == 0
                         \ | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
         augroup END
@@ -65,7 +65,7 @@ function M.enable_auto_commit()
     if !exists('#auto_git_commit#BufWritePost')
         augroup auto_git_commit
             autocmd!
-            autocmd BufWritePost * lua require("git-scripts").auto_commit()
+            autocmd BufWritePost * lua require("git-scripts").autocmd_commit()
             autocmd BufEnter * if g:commit_on_save == 1 && g:commit_no_warnings == 0
                         \ | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
         augroup END
@@ -88,7 +88,7 @@ function M.disable_auto_commit()
 end
 
 -- Asynchronous git commit when commit_on_save is enabled.
-function M.auto_commit()
+function M.autocmd_commit()
   if vim.g.commit_on_save == 1 then
     require('git-scripts').async_commit()
   end

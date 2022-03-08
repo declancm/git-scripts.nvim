@@ -1,5 +1,5 @@
 # Created by Declan Mullen
-# Git repository can be found at: https://github.com/declancm/git-commit-script
+# Git repository can be found at: https://github.com/declancm/git-scripts.nvim
 
 #!/usr/bin/env bash
 

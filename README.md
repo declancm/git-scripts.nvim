@@ -1,4 +1,4 @@
-# git-scripts-nvim
+# git-scripts.nvim
 
 Automated git commit and git pull keymaps. Optional asynchronous git commit on\
 save. A message is generated for the commit which has the date and time in UTC\
