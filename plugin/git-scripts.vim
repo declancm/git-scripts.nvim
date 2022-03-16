@@ -7,8 +7,7 @@ let g:loaded_gitscripts = 1
 " INITIALIZING:
 
 if has('win32')
-    echom "A unix system is required for 'git-scripts.nvim' :(. Have you tried using WSL?"
-    finish
+    echo "A unix system is required for 'git_scripts' :(. Have you tried using WSL?"
 endif
 
 let g:gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'

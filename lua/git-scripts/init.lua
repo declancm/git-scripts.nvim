@@ -1,10 +1,29 @@
 local M = {}
 
+-- Git commit.
+M.git_commit = function(message)
+  if message == nil then
+    vim.cmd('!source ' .. vim.g.gitscripts_location .. '/commit.sh')
+  else
+    vim.cmd('!source ' .. vim.g.gitscripts_location .. '/commit.sh ' .. message)
+  end
+end
+
+-- Git pull.
+function M.git_pull()
+  vim.cmd('!source ' .. vim.g.gitscripts_location .. '/pull.sh')
+end
+
 -- Asynchronous git commit.
-function M.async_commit(message, directory)
+M.async_commit = function(message, directory)
   local message = message or ''
   local directory = directory or vim.fn.getcwd()
-  local job = require 'plenary.job'
+  -- Check if plenary is installed.
+  local plenary_status, job = pcall(require, 'plenary.job')
+  if not plenary_status then
+    print 'Error: Plenary is not installed.'
+    return
+  end
   job
     :new({
       command = vim.g.gitscripts_location .. '/commit.sh',
@@ -20,9 +39,14 @@ function M.async_commit(message, directory)
 end
 
 -- Asynchronous git pull.
-function M.async_pull(directory)
+M.async_pull = function(directory)
   local directory = directory or vim.fn.getcwd()
-  local job = require 'plenary.job'
+  -- Check if plenary is installed.
+  local plenary_status, job = pcall(require, 'plenary.job')
+  if not plenary_status then
+    print 'Error: Plenary is not installed.'
+    return
+  end
   job
     :new({
       command = vim.g.gitscripts_location .. '/pull.sh',
@@ -37,7 +61,7 @@ function M.async_pull(directory)
 end
 
 -- Toggle automatic asynchronous git commit on save.
-function M.toggle_auto_commit()
+M.toggle_auto_commit = function()
   if vim.g.commit_on_save ~= 1 then
     vim.g.commit_on_save = 1
     vim.cmd [[
@@ -58,7 +82,7 @@ function M.toggle_auto_commit()
 end
 
 -- Enable automatic asynchronous git commit on save.
-function M.enable_auto_commit()
+M.enable_auto_commit = function()
   if vim.g.commit_on_save ~= 1 then
     vim.g.commit_on_save = 1
     vim.cmd [[
@@ -78,7 +102,7 @@ function M.enable_auto_commit()
 end
 
 -- Disable automatic asynchronous git commit on save.
-function M.disable_auto_commit()
+M.disable_auto_commit = function()
   if vim.g.commit_on_save ~= 0 then
     vim.g.commit_on_save = 0
     print 'Commit on save is disabled.'
@@ -88,26 +112,10 @@ function M.disable_auto_commit()
 end
 
 -- Asynchronous git commit when commit_on_save is enabled.
-function M.autocmd_commit()
+M.autocmd_commit = function()
   if vim.g.commit_on_save == 1 then
     require('git-scripts').async_commit()
   end
-end
-
--- Git commit.
-function M.git_commit(message)
-  local message = message or ''
-  if message ~= '' then
-    vim.b.commitMessage = message
-    vim.cmd [[exec "!source " . g:gitscripts_location . "/commit.sh '" . b:commitMessage . "'"]]
-  else
-    vim.cmd [[exec "!source " . g:gitscripts_location . "/commit.sh"]]
-  end
-end
-
--- Git pull.
-function M.git_pull()
-  vim.cmd [[exec "!source " . g:gitscripts_location . "/pull.sh"]]
 end
 
 -- TODO get fugitive commit and pull working.
