@@ -1,14 +1,14 @@
 # git-scripts.nvim
 
-Automated git commit and git pull keymaps. Optional asynchronous git commit on\
-save. A message is generated for the commit which has the date and time in UTC\
+Automated git commit and git pull keymaps. Optional asynchronous git commit on
+save. A message is generated for the commit which has the date and time in UTC
 format.
 
-__Note: Look at the commits for this repo to see the plugin in action.__
+__Note: Look at the commits for this repo to see the plugin in action 💃.__
 
 ## Installation
 
-Install with your favorite package manager. Plenary is needed for the\
+Install with your favorite package manager. Plenary is needed for the
 asynchronous functions.
 
 ### Packer
@@ -63,6 +63,17 @@ require("git-scripts").enable_auto_commit()
 require("git-scripts").disable_auto_commit()
 ```
 
+### Options
+
+```lua
+-- Default options:
+require('git-scripts').setup() {
+  defaults = true, -- Use default keymaps.
+  commit_on_save = false, -- Automatically commit when saving the current buffer.
+  warnings = true, -- Display a warning on buffer entry when commit-on-save is active.
+}
+```
+
 ### Default Keymaps
 
 ```lua
@@ -73,61 +84,11 @@ vim.api.nvim_set_keymap('n', '<leader>gp', '<Cmd>lua require("git-scripts").asyn
 vim.api.nvim_set_keymap('n', '<leader>tac', '<Cmd>lua require("git-scripts").toggle_auto_commit()<CR>', opts)
 ```
 
-### Custom Keymaps
-
-To disable the default keyamps, add to your vimrc:
-
-```lua
--- init.lua
-vim.g.gitscripts_no_defaults = 1
-```
-
-```vim
-" init.vim
-let g:gitscripts_no_defaults = 1
-```
-
-Then set your own keymaps in your vimrc:
-
-```lua
-local opts = { noremap = true, silent = true }
-
-vim.api.nvim_set_keymap('n', '<leader>gc', '<Cmd>lua require("git-scripts").git_commit("declancm " .. os.date("!%c"))<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>gp', '<Cmd>lua require("git-scripts").git_pull("declancm " .. os.date("!%c"))<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>tac', '<Cmd>lua require("git-scripts").toggle_auto_commit("declancm " .. os.date("!%c"))<CR>', opts)
-```
-
 ### Commit On Save
 
-To enable automatic asynchronous git commiting on save for every vim session,
-add to your vimrc:
-
-```lua
--- init.lua
-vim.g.commit_on_save = 1
-```
-
-```vim
-" init.vim
-let g:commit_on_save = 1
-```
-
-This will push a git commit with a generated message containing the current date\
-and time in UTC format, every time the buffer is saved while changes exist.\
+This will push a git commit with a generated message containing the current date
+and time in UTC format, every time the buffer is saved while changes exist.
 This occurs asynchronously in the background for maximum convenience.
 
-To disable commit on save for the current session, either use the\
+To disable commit on save for the current session, either use the
 default keymap `<leader>tac` to toggle, or enter the command `:DisableCommit`.
-
-To disable the 'commit on save enabled' warning shown on buffer entry, add to\
-your vimrc:
-
-```lua
--- init.lua
-vim.g.commit_no_warnings = 1
-```
-
-```vim
-" init.vim
-let g:commit_no_warnings = 1
-```
