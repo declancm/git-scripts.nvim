@@ -68,8 +68,8 @@ require("git-scripts").disable_auto_commit()
 ```lua
 -- Default options:
 require('git-scripts').setup() {
-  defaults = true, -- Use default keymaps.
   commit_on_save = false, -- Automatically commit when saving the current buffer.
+  default_keymaps = true, -- Use default keymaps.
   warnings = true, -- Display a warning on buffer entry when commit-on-save is active.
 }
 ```

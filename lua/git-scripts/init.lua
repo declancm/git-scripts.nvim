@@ -15,8 +15,8 @@ M.setup = function(options)
   end
 
   local defaults = {
-    defaults = true,
     commit_on_save = false,
+    default_keymaps = true,
     warnings = true,
   }
 
@@ -38,7 +38,7 @@ M.setup = function(options)
   -- print(vim.inspect(options))
 
   -- Default keymaps:
-  if options.defaults == true then
+  if options.default_keymaps == true then
     local keymap = vim.api.nvim_set_keymap
     local opts = { noremap = true, silent = true }
     keymap(
