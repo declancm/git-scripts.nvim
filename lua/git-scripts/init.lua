@@ -28,7 +28,7 @@ M.setup = function(options)
 
   -- If vim variables were set manually, assign them to the options table.
   if vim.g.gitscripts_no_defaults == 1 then
-    options['defaults'] = false
+    options['default_keymaps'] = false
   elseif vim.g.commit_on_save == 1 then
     options['commit_on_save'] = true
   elseif vim.g.gitscripts_no_warnings == 1 then
