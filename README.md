@@ -1,10 +1,23 @@
-# git-scripts.nvim
+# git-scripts.nvim 📜
 
-Automated git commit and git pull keymaps. Optional asynchronous git commit on
-save. A message is generated for the commit which has the date and time in UTC
-format.
+## Features
 
-__Note: Look at the commits for this repo to see the plugin in action 💃.__
+* Automated async git commit and async git pull keymaps.
+* Optional asynchronous git commit on save. A message is generated for the
+commit which has the date and time in UTC format.
+
+The async pull is very versatile and can be setup in your config for any
+directory to ensure you are always up-to-date.
+
+```vim
+" Git pull when entering the example repository:
+autocmd BufEnter example_repo_path/** lua require('git-scripts').async_pull(example_repo_path)
+```
+
+The async commit is extremely effortless and can be very useful for quick
+commits to your own repositories because time is money 🤑.
+
+_Note: Look at the commits for this repo to see the plugin in action 💃._
 
 ## Installation
 
@@ -22,13 +35,6 @@ use {
   'declancm/git-scripts.nvim',
   requires = 'nvim-lua/plenary.nvim',
 }
-```
-
-### Vim-Plug
-
-```vim
-Plug 'nvim-lua/plenary.nvim'
-Plug 'declancm/git-scripts.nvim'
 ```
 
 ## Usage
@@ -72,8 +78,8 @@ require("git-scripts").disable_auto_commit()
 ```lua
 -- Default options:
 require('git-scripts').setup() {
-  commit_on_save = false, -- Automatically commit when saving the current buffer.
   default_keymaps = true, -- Use default keymaps.
+  commit_on_save = false, -- Automatically commit when saving the current buffer.
   warnings = true, -- Display a warning on buffer entry when commit-on-save is active.
 }
 ```

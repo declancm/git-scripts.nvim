@@ -16,8 +16,8 @@ M.setup = function(options)
   end
 
   local defaults = {
-    commit_on_save = false,
     default_keymaps = true,
+    commit_on_save = false,
     warnings = true,
   }
 
