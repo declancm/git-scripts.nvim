@@ -30,12 +30,9 @@ the completely automated experience 🤖.
 
 ## Installation
 
-Requirements:
-* bash
-* Git
-
 Install with your favorite package manager. Plenary is needed for the
-asynchronous functions.
+asynchronous functions and the Bash unix shell is needed for running the shell
+scripts.
 
 ### Packer
 
