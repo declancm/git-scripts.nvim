@@ -3,7 +3,8 @@ local M = {}
 M.init = function()
   -- Check if user is on Windows.
   if vim.fn.has 'win32' == 1 then
-    print "A unix system is required for 'git_scripts' :(. Have you tried using WSL?"
+    print "A unix system is required for 'git-scripts' :(. Have you tried using WSL?"
+    vim.g.__gitscripts_failed = 1
   end
   -- Make the scripts executable.
   -- vim.cmd('!chmod +x ' .. vim.g.gitscripts_location .. '/*.sh')
@@ -37,7 +38,9 @@ M.setup = function(options)
     options['warnings'] = false
   end
 
-  -- print(vim.inspect(options))
+  -- Setting variables:
+  vim.g.__gitscripts_warnings = options.warnings
+  vim.g.__gitscripts_commit_on_save = options.commit_on_save
 
   -- Default keymaps:
   if options.default_keymaps == true then
@@ -63,40 +66,12 @@ M.setup = function(options)
     )
   end
 
+  -- Activating commit on save:
   if options.commit_on_save == true then
-    vim.g.commit_on_save = 1
-
-    -- NOTE: lua autocmds are a neovim nightly feature
-    -- local autocmd = vim.api.nvim_create_autocmd
-    -- local augroup = vim.api.nvim_create_augroup
-    -- autocmd('BufWritePost', {
-    --   command = 'lua require("git-scripts").autocmd_commit()',
-    --   group = augroup('auto_git_commit', {}),
-    -- })
-    -- autocmd('BufEnter', {
-    --   callback = function()
-    --     if vim.g.commit_on_save == 1 and vim.g.commit_no_warnings == 0 then
-    --       print "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable."
-    --     end
-    --   end,
-    --   group = augroup('auto_git_commit', {}),
-    -- })
-
-    vim.cmd [[
-    augroup auto_git_commit
-        autocmd!
-        autocmd BufWritePost * lua require("git-scripts").autocmd_commit()
-        autocmd BufEnter * if g:commit_on_save == 1 && g:commit_no_warnings != 1
-                    \ | echom "WARNING: Commit on save is enabled. Use ':DisableCommit' to disable." | endif
-    augroup END
-    ]]
+    require('git-scripts.utils').set_commit_autocmd()
   end
 
-  if options.warnings == false then
-    vim.g.commit_no_warnings = 1
-  end
-
-  vim.g.gitscripts_setup_completed = 1
+  vim.g.__gitscripts_setup_completed = 1
 end
 
 M.git_commit = function(message)

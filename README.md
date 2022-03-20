@@ -8,6 +8,10 @@ __Note: Look at the commits for this repo to see the plugin in action 💃.__
 
 ## Installation
 
+Requirements:
+* bash
+* Git
+
 Install with your favorite package manager. Plenary is needed for the
 asynchronous functions.
 
