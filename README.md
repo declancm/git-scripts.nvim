@@ -2,22 +2,31 @@
 
 ## Features
 
-* Automated async git commit and async git pull keymaps.
-* Optional asynchronous git commit on save. A message is generated for the
-commit which has the date and time in UTC format.
+### Automated Async Commit
 
-The async pull is very versatile and can be setup in your config for any
-directory to ensure you are always up-to-date.
-
-```vim
-" Git pull when entering the example repository:
-autocmd BufEnter <example_repo_path>/** lua require('git-scripts').async_pull('<example_repo_path>')
-```
+__Look at the commits for this repo to see the automated commit in action 🎬.__
 
 The async commit is extremely effortless and can be very useful for quick
-commits to your own repositories because time is money 🤑.
+commits to your repositories (such as a '.dofiles' repo), because time is money
+🤑.
 
-_Note: Look at the commits for this repo to see the plugin in action 💃._
+### Automated Async Pull
+
+The async pull is very versatile and can be setup in your config for any
+directory to ensure you are always up-to-date 💃.
+
+```vim
+" Git pull asynchronously on entry to a specific repository:
+autocmd BufEnter <example_repo_path>/** lua require('git-scripts').async_pull('<example_repo_path>')
+
+" Git pull asynchronously on entry to every repository:
+autocmd BufEnter * lua require('git-scripts').async_pull(getcwd())
+```
+
+### Commit-On-Save
+
+Take the auto commits a step further and use the 'commit-on-save' feature to get
+the completely automated experience 🤖.
 
 ## Installation
 
