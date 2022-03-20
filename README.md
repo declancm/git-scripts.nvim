@@ -11,7 +11,7 @@ directory to ensure you are always up-to-date.
 
 ```vim
 " Git pull when entering the example repository:
-autocmd BufEnter example_repo_path/** lua require('git-scripts').async_pull(example_repo_path)
+autocmd BufEnter <example_repo_path>/** lua require('git-scripts').async_pull('<example_repo_path>')
 ```
 
 The async commit is extremely effortless and can be very useful for quick
