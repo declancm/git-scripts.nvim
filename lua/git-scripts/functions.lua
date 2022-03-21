@@ -27,7 +27,7 @@ M.async_commit = function(message, directory)
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
   if not plenary_status then
-    print 'Error: Plenary is not installed.'
+    vim.cmd [[echohl ErrorMsg | echo "Error: Plenary is not installed." | echohl None]]
     return
   end
   job
@@ -37,7 +37,9 @@ M.async_commit = function(message, directory)
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          print 'Error: The git commit failed.'
+          vim.cmd [[echohl ErrorMsg | echo "Error: The git commit failed." | echohl None]]
+        else
+          print 'The git commit was successful!'
         end
       end,
     })
@@ -52,7 +54,7 @@ M.async_pull = function(directory)
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
   if not plenary_status then
-    print 'Error: Plenary is not installed.'
+    vim.cmd [[echohl ErrorMsg | echo "Error: Plenary is not installed." | echohl None]]
     return
   end
   job
@@ -61,7 +63,7 @@ M.async_pull = function(directory)
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          print 'Error: The git pull failed.'
+          vim.cmd [[echohl ErrorMsg | echo "Error: The git pull failed." | echohl None]]
         end
       end,
     })
@@ -87,7 +89,7 @@ M.enable_auto_commit = function()
     require('git-scripts.utils').set_commit_autocmd()
     print 'Commit on save is enabled.'
   else
-    print 'Commit on save has already been enabled.'
+    print 'Commit on save is already enabled.'
   end
 end
 
@@ -97,7 +99,7 @@ M.disable_auto_commit = function()
     vim.g.__gitscripts_commit_on_save = false
     print 'Commit on save is disabled.'
   else
-    print 'Commit on save was already disabled.'
+    print 'Commit on save is already disabled.'
   end
 end
 

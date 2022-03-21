@@ -3,11 +3,13 @@ local M = {}
 M.init = function()
   -- Check if user is on Windows.
   if vim.fn.has 'win32' == 1 then
-    print "A unix system is required for 'git-scripts' :(. Have you tried using WSL?"
+    vim.cmd [[
+    echohl WarningMsg
+    echo "Error: A unix system is required for 'git-scripts' :(. Have you tried using WSL?"
+    echohl None
+    ]]
     vim.g.__gitscripts_failed = 1
   end
-  -- Make the scripts executable.
-  -- vim.cmd('!chmod +x ' .. vim.g.gitscripts_location .. '/*.sh')
 end
 
 M.setup = function(options)
@@ -74,17 +76,17 @@ M.setup = function(options)
   vim.g.__gitscripts_setup_completed = 1
 end
 
-M.git_commit = function(message)
-  require('git-scripts.functions').git_commit(message)
+M.git_commit = function(...)
+  require('git-scripts.functions').git_commit(...)
 end
 M.git_pull = function()
   require('git-scripts.functions').git_pull()
 end
-M.async_commit = function(message, directory)
-  require('git-scripts.functions').async_commit(message, directory)
+M.async_commit = function(...)
+  require('git-scripts.functions').async_commit(...)
 end
-M.async_pull = function(directory)
-  require('git-scripts.functions').async_pull(directory)
+M.async_pull = function(...)
+  require('git-scripts.functions').async_pull(...)
 end
 M.toggle_auto_commit = function()
   require('git-scripts.functions').toggle_auto_commit()
