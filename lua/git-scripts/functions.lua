@@ -38,8 +38,6 @@ M.async_commit = function(message, directory)
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
           vim.cmd [[echohl ErrorMsg | echo "Error: The git commit failed." | echohl None]]
-        else
-          print 'The git commit was successful!'
         end
       end,
     })
