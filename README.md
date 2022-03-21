@@ -4,16 +4,16 @@
 
 ### Automated Async Commit
 
-__Look at the commits for this repo to see the automated commit in action 🎬.__
+__Look at the commits for this repo to see the automated commit in action 👀.__
 
 The async commit is extremely effortless and can be very useful for quick
-commits to your repositories (such as a '.dofiles' repo), because time is money
-🤑.
+commits to your repositories (such as a '.dotfiles' repo), because time is money
+💵.
 
 ### Automated Async Pull
 
 The async pull is very versatile and can be setup in your config for any
-directory to ensure you are always up-to-date 💃.
+directory to ensure you are always up-to-date.
 
 ```vim
 " Git pull asynchronously on entry to a specific repository:

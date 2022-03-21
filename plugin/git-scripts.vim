@@ -3,7 +3,7 @@ if exists("g:__loaded_gitscripts")
 endif
 let g:__gitscripts_loaded = 1
 lua require('git-scripts').init()
-if exists("g.__gitscrips_failed")
+if exists("g:__gitscrips_failed")
     finish
 endif
 
