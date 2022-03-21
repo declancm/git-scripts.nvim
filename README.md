@@ -20,7 +20,10 @@ directory to ensure you are always up-to-date.
 autocmd BufEnter <example_repo_path>/** lua require('git-scripts').async_pull('<example_repo_path>')
 
 " Git pull asynchronously on entry to every repository:
-autocmd BufEnter * lua require('git-scripts').async_pull(getcwd())
+autocmd BufEnter * lua require('git-scripts').async_pull(expand('%:p:h'))
+
+" Git pull asynchronously on entry:
+autocmd VimEnter * lua require('git-scripts').async_pull()
 ```
 
 ### Commit-On-Save

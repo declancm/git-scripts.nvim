@@ -2,6 +2,11 @@ local M = {}
 
 -- Git commit.
 M.git_commit = function(message)
+  -- Check if within a git directory.
+  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
+    vim.cmd [[echohl ErrorMsg | echo "Error: You are not within a git repository." | echohl None]]
+    return
+  end
   if message == nil then
     vim.cmd('!source ' .. vim.g.__gitscripts_location .. '/commit.sh')
   else
@@ -13,6 +18,11 @@ end
 
 -- Git pull.
 M.git_pull = function()
+  -- Check if within a git directory.
+  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
+    vim.cmd [[echohl ErrorMsg | echo "Error: You are not within a git repository." | echohl None]]
+    return
+  end
   vim.cmd('!source ' .. vim.g.__gitscripts_location .. '/pull.sh')
 end
 
@@ -23,6 +33,10 @@ M.async_commit = function(message, directory)
   end
   if directory == nil then
     directory = vim.fn.getcwd()
+  end
+  -- Check if within a git directory.
+  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
+    return
   end
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
@@ -48,6 +62,10 @@ end
 M.async_pull = function(directory)
   if directory == nil then
     directory = vim.fn.getcwd()
+  end
+  -- Check if within a git directory.
+  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
+    return
   end
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
