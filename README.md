@@ -4,7 +4,7 @@
 
 ### Automated Async Commit
 
-__Look at the commits for this repo to see the automated commit in action 👀.__
+✨ __Look at the commits for this repo to see the automated commit in action.__ ✨
 
 The async commit is extremely effortless and can be very useful for quick
 commits to your repositories (such as a '.dotfiles' repo), because time is money
