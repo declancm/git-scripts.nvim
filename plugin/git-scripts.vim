@@ -13,3 +13,4 @@ if !exists("g:__gitscripts_setup_completed")
     lua require('git-scripts').setup()
 endif
 command! DisableCommit lua require("git-scripts.functions").disable_auto_commit()
+command! GitLog edit ~/.cache/nvim/git-scripts.log

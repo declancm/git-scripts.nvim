@@ -16,13 +16,13 @@ The async pull is very versatile and can be setup in your config for any
 directory to ensure you are always up-to-date.
 
 ```vim
-" Git pull asynchronously on entry to a specific repository:
+" Pull on entry to a specific repository:
 autocmd BufEnter <example_repo_path>/** lua require('git-scripts').async_pull('<example_repo_path>')
 
-" Git pull asynchronously on entry to every repository:
+" Pull on entry to every repository:
 autocmd BufEnter * lua require('git-scripts').async_pull(expand('%:p:h'))
 
-" Git pull asynchronously on entry:
+" Pull on nvim entry:
 autocmd VimEnter * lua require('git-scripts').async_pull()
 ```
 

@@ -1,5 +1,7 @@
 local M = {}
 
+-- TODO: add redirection for the scripts to a log file to '~/.cache/nvim/gitscripts.log'
+
 -- Git commit.
 M.git_commit = function(message)
   -- Check if within a git directory.
@@ -34,16 +36,17 @@ M.async_commit = function(message, directory)
   if directory == nil then
     directory = vim.fn.getcwd()
   end
-  -- Check if within a git directory.
-  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
-    return
-  end
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
   if not plenary_status then
     vim.cmd [[echohl ErrorMsg | echo "Error: Plenary is not installed." | echohl None]]
     return
   end
+  -- Check if within a git directory.
+  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
+    return
+  end
+  -- Perform the asynchronous git commit.
   job
     :new({
       command = vim.g.__gitscripts_location .. '/commit.sh',
@@ -51,7 +54,7 @@ M.async_commit = function(message, directory)
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          vim.cmd [[echohl ErrorMsg | echo "Error: The git commit failed." | echohl None]]
+          print "Error: The git commit failed. Use ':GitLog' to view the log file."
         end
       end,
     })
@@ -63,23 +66,24 @@ M.async_pull = function(directory)
   if directory == nil then
     directory = vim.fn.getcwd()
   end
-  -- Check if within a git directory.
-  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
-    return
-  end
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
   if not plenary_status then
     vim.cmd [[echohl ErrorMsg | echo "Error: Plenary is not installed." | echohl None]]
     return
   end
+  -- Check if within a git directory.
+  if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
+    return
+  end
+  -- Perform the asynchronous git pull.
   job
     :new({
       command = vim.g.__gitscripts_location .. '/pull.sh',
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          vim.cmd [[echohl ErrorMsg | echo "Error: The git pull failed." | echohl None]]
+          print "Error: The git pull failed. Use ':GitLog' to view the log file."
         end
       end,
     })
