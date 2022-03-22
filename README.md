@@ -66,10 +66,10 @@ require("git-scripts").git_commit(message)
 -- Git pull with full error information on failure.
 require("git-scripts").git_pull()
 
--- Git commit and push asynchronously. Notify on failure.
+-- Git commit and push asynchronously. Notify on failure. Error details are written to a log file.
 require("git-scripts").async_commit(message, directory)
 
--- Git pull asynchronously. Notify on failure.
+-- Git pull asynchronously. Notify on failure. Error details are written to a log file.
 require("git-scripts").async_pull(directory)
 
 -- Toggle automatic asynchronous commit on save.

@@ -13,6 +13,8 @@ M.init = function()
 end
 
 M.setup = function(options)
+  vim.g.__gitscripts_setup_completed = 1
+
   if options == nil then
     options = {}
   end
@@ -72,8 +74,6 @@ M.setup = function(options)
   if options.commit_on_save == true then
     require('git-scripts.utils').set_commit_autocmd()
   end
-
-  vim.g.__gitscripts_setup_completed = 1
 end
 
 M.git_commit = function(...)
