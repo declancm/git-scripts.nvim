@@ -1,11 +1,7 @@
-if exists("g:__loaded_gitscripts")
+if exists("g:__gitscripts_loaded")
     finish
 endif
 let g:__gitscripts_loaded = 1
-lua require('git-scripts').init()
-if exists("g:__gitscrips_failed")
-    finish
-endif
 
 " Setup:
 let g:__gitscripts_location = (fnamemodify(resolve(expand('<sfile>:p')), ':h')) . '/../scripts'

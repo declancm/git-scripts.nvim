@@ -1,6 +1,8 @@
 local M = {}
 
-M.init = function()
+M.setup = function(options)
+  vim.g.__gitscripts_setup_completed = 1
+
   -- Check if user is on Windows.
   if vim.fn.has 'win32' == 1 then
     vim.cmd [[
@@ -8,13 +10,10 @@ M.init = function()
     echo "Error: A unix system is required for 'git-scripts' :(. Have you tried using WSL?"
     echohl None
     ]]
-    vim.g.__gitscripts_failed = 1
+    return
   end
-end
 
-M.setup = function(options)
-  vim.g.__gitscripts_setup_completed = 1
-
+  -- Set the options:
   if options == nil then
     options = {}
   end
