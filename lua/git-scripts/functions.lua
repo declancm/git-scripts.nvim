@@ -2,7 +2,6 @@ local M = {}
 
 local options = require('git-scripts').options
 local utils = require('git-scripts.utils')
-local scripts_location = require('git-scripts').scripts_location
 
 -- Git commit.
 M.git_commit = function(message)
@@ -55,6 +54,7 @@ M.async_commit = function(message, directory)
     return
   end
   -- Perform the asynchronous git commit.
+  local scripts_location = require('git-scripts').scripts_location
   job
     :new({
       command = scripts_location .. '/commit.sh',
@@ -87,6 +87,7 @@ M.async_pull = function(directory)
     return
   end
   -- Perform the asynchronous git pull.
+  local scripts_location = require('git-scripts').scripts_location
   job
     :new({
       command = scripts_location .. '/pull.sh',
