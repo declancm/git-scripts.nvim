@@ -1,10 +1,12 @@
 local M = {}
 
+local utils = require 'git-scripts.utils'
+
 -- Git commit.
 M.git_commit = function(message)
   -- Check if within a git directory.
   if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
-    vim.cmd [[echohl ErrorMsg | echo "Error: You are not within a git repository." | echohl None]]
+    utils.error_msg 'You are not within a git repository'
     return
   end
   if message == nil then
@@ -20,7 +22,7 @@ end
 M.git_pull = function()
   -- Check if within a git directory.
   if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
-    vim.cmd [[echohl ErrorMsg | echo "Error: You are not within a git repository." | echohl None]]
+    utils.error_msg 'You are not within a git repository'
     return
   end
   vim.cmd('!source ' .. vim.g.__gitscripts_location .. '/pull.sh')
@@ -37,12 +39,12 @@ M.async_commit = function(message, directory)
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
   if not plenary_status then
-    vim.cmd [[echohl ErrorMsg | echo "Error: Plenary is not installed." | echohl None]]
+    utils.error_msg 'Plenary is not installed'
     return
   end
   -- Check if within a git directory.
   if os.execute 'git rev-parse --git-dir 2>/dev/null' ~= 0 then
-    vim.cmd [[echohl ErrorMsg | echo "Error: You are not within a git repository." | echohl None]]
+    utils.error_msg 'You are not within a git repository'
     return
   end
   -- Perform the asynchronous git commit.
@@ -53,7 +55,7 @@ M.async_commit = function(message, directory)
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          print "Error: The git commit failed. Use ':GitLog' to view the log file."
+          print "Error: The git commit failed. Use ':GitLog' to view the log file"
         end
       end,
     })
@@ -68,7 +70,7 @@ M.async_pull = function(directory)
   -- Check if plenary is installed.
   local plenary_status, job = pcall(require, 'plenary.job')
   if not plenary_status then
-    vim.cmd [[echohl ErrorMsg | echo "Error: Plenary is not installed." | echohl None]]
+    utils.error_msg 'Plenary is not installed'
     return
   end
   -- Check if within a git directory.
@@ -82,7 +84,7 @@ M.async_pull = function(directory)
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          print "Error: The git pull failed. Use ':GitLog' to view the log file."
+          print "Error: The git pull failed. Use ':GitLog' to view the log file"
         end
       end,
     })

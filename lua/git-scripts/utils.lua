@@ -1,5 +1,11 @@
 local M = {}
 
+M.error_msg = function(message)
+  vim.cmd(
+    [[echohl ErrorMsg | echom 'Error: ]] .. message .. [[' | echohl None]]
+  )
+end
+
 -- Set the autocmd which commits on save.
 M.set_commit_autocmd = function()
   vim.cmd [[
