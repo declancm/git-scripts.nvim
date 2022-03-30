@@ -1,32 +1,37 @@
 local M = {}
 
-local utils = require 'git-scripts.utils'
+M.init = function(scripts_location)
+  M.scripts_location = scripts_location
+end
 
 M.setup = function(options)
-  vim.g.__gitscripts_setup_completed = 1
+  vim.g.__gitscripts_setup_loaded = 1
 
   -- Check if user is on Windows.
-  if vim.fn.has 'win32' == 1 then
-    utils.error_msg "A unix system is required for 'git-scripts' :(. Have you tried using WSL?"
+  if vim.fn.has('win32') == 1 then
+    require('git-scripts.utils').error_msg(
+      "A unix system is required for 'git-scripts' :(. Have you tried using WSL?"
+    )
     return
   end
 
   -- Set the options:
-  if options == nil then
-    options = {}
-  end
-
   local defaults = {
     default_keymaps = true,
     commit_on_save = false,
     warnings = true,
   }
-
-  for key, value in pairs(defaults) do
-    if options[key] == nil then
-      options[key] = value
+  if options == nil then
+    options = defaults
+  else
+    for key, value in pairs(defaults) do
+      if options[key] == nil then
+        options[key] = value
+      end
     end
   end
+
+  M.options = options
 
   -- If vim variables were set manually, assign them to the options table.
   if vim.g.gitscripts_no_defaults == 1 then
@@ -38,10 +43,6 @@ M.setup = function(options)
   if vim.g.gitscripts_no_warnings == 1 then
     options['warnings'] = false
   end
-
-  -- Setting variables:
-  vim.g.__gitscripts_warnings = options.warnings
-  vim.g.__gitscripts_commit_on_save = options.commit_on_save
 
   -- Default keymaps:
   if options.default_keymaps == true then
