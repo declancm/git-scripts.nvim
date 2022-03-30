@@ -22,7 +22,6 @@ end
 
 -- Asynchronous git commit when commit_on_save is enabled.
 M.commit_on_save = function()
-  local scripts_location = require('git-scripts').scripts_location
   if options['commit_on_save'] then
     local directory = vim.fn.getcwd()
     -- Check if plenary is installed.
@@ -39,6 +38,7 @@ M.commit_on_save = function()
       return
     end
     -- Perform the asynchronous git commit.
+    local scripts_location = require('git-scripts').scripts_location
     job
       :new({
         command = scripts_location .. '/commit.sh',
