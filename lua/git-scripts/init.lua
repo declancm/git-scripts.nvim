@@ -9,8 +9,8 @@ M.setup = function(options)
 
   -- Check if user is on Windows.
   if vim.fn.has('win32') == 1 then
-    require('git-scripts.utils').error_msg(
-      "A unix system is required for 'git-scripts' :(. Have you tried using WSL?"
+    vim.cmd(
+      [[echohl ErrorMsg | echom "Error: A unix system is required for 'git-scripts' :(. Have you tried using WSL?" | echohl None]]
     )
     return
   end
@@ -20,6 +20,7 @@ M.setup = function(options)
     default_keymaps = true,
     commit_on_save = false,
     warnings = true,
+    remove_log = true,
   }
   if options == nil then
     options = defaults
@@ -35,13 +36,24 @@ M.setup = function(options)
 
   -- If vim variables were set manually, assign them to the options table.
   if vim.g.gitscripts_no_defaults == 1 then
-    options['default_keymaps'] = false
+    options.default_keymaps = false
   end
   if vim.g.commit_on_save == 1 then
-    options['commit_on_save'] = true
+    options.commit_on_save = true
   end
   if vim.g.gitscripts_no_warnings == 1 then
-    options['warnings'] = false
+    options.warnings = false
+  end
+
+  -- Delete log file from cache.
+  if defaults.remove_log then
+    vim.cmd([[
+    aug gitscripts_log
+    au!
+    au VimEnter * call delete(getenv('HOME') . '/.cache/nvim/git-scripts.log')
+    au VimLeave * call delete(getenv('HOME') . '/.cache/nvim/git-scripts.log')
+    aug END
+    ]])
   end
 
   -- Default keymaps:

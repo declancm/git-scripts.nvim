@@ -4,7 +4,7 @@
 #!/usr/bin/env bash
 
 (
-    echo "Commit log [`date -u +'%b %d %H:%M:%S %Y'`] :\n"
+    echo "Commit Log [`date -u +'%b %d %H:%M:%S %Y'`] :\n"
     gitBranch=$(git rev-parse --abbrev-ref HEAD)
     gitDirectory=$(git rev-parse --show-toplevel)
     cd $gitDirectory

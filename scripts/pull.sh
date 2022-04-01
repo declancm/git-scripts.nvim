@@ -4,7 +4,7 @@
 #!/usr/bin/env bash
 
 (
-    echo "Pull log [`date -u +'%b %d %H:%M:%S %Y'`] :\n"
+    echo "Pull Log [`date -u +'%b %d %H:%M:%S %Y'`] :\n"
     gitBranch=$(git rev-parse --abbrev-ref HEAD)
     gitDirectory=$(git rev-parse --show-toplevel)
     cd $gitDirectory

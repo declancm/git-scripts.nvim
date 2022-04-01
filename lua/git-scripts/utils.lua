@@ -5,7 +5,11 @@ local options = require('git-scripts').options
 M.error_msg = function(message, code)
   code = code or 'Error'
   vim.cmd(
-    "echohl ErrorMsg | echom '" .. code .. ': ' .. message .. "' | echohl None"
+    string.format(
+      "echohl ErrorMsg | echom '%s: %s' | echohl None",
+      code,
+      message
+    )
   )
 end
 
@@ -22,15 +26,18 @@ end
 
 -- Asynchronous git commit when commit_on_save is enabled.
 M.commit_on_save = function()
-  if options['commit_on_save'] then
+  if options.commit_on_save then
     local directory = vim.fn.getcwd()
     -- Check if plenary is installed.
     local plenary_status, job = pcall(require, 'plenary.job')
     if not plenary_status then
       vim.cmd(
-        [[echohl ErrorMsg | echo "Error: Plenary is not installed. Commit on save is being disabled." | echohl None]]
+        "echohl ErrorMsg | echom 'Error: Plenary is not installed. Commit on save is being disabled' | echohl None"
       )
-      options['commit_on_save'] = false
+      -- require('git-scripts.utils').ErrorMsg(
+      --   'Plenary is not installed. Commit on save is being disabled.'
+      -- )
+      options.commit_on_save = false
       return
     end
     -- Check if within a git directory.
@@ -46,9 +53,7 @@ M.commit_on_save = function()
         cwd = directory,
         on_exit = function(_, exit_code)
           if exit_code ~= 0 then
-            print(
-              "Error: The git commit failed. Use ':GitLog' to view the log file."
-            )
+            print("The git commit failed. Use ':GitLog' to view the log file")
           end
         end,
       })
@@ -57,14 +62,10 @@ M.commit_on_save = function()
 end
 
 M.commit_warning = function()
-  if
-    options['commit_on_save']
-    and options['warnings']
-    and vim.bo.buftype == ''
-  then
+  if options.commit_on_save and options.warnings and vim.bo.buftype == '' then
     vim.cmd([[
     echohl WarningMsg
-    echo "Warning: Commit on save is enabled. Use ':DisableCommit' to disable."
+    echo "Warning: Commit on save is enabled. Use ':DisableCommit' to disable"
     echohl None
     ]])
   end

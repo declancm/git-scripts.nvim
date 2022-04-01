@@ -62,9 +62,7 @@ M.async_commit = function(message, directory)
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          print(
-            "Error: The git commit failed. Use ':GitLog' to view the log file"
-          )
+          print("The git commit failed. Use ':GitLog' to view the log file")
         end
       end,
     })
@@ -94,9 +92,7 @@ M.async_pull = function(directory)
       cwd = directory,
       on_exit = function(_, exit_code)
         if exit_code ~= 0 then
-          print(
-            "Error: The git pull failed. Use ':GitLog' to view the log file"
-          )
+          print("The git pull failed. Use ':GitLog' to view the log file")
         end
       end,
     })
@@ -105,34 +101,34 @@ end
 
 -- Toggle automatic asynchronous git commit on save.
 M.toggle_auto_commit = function()
-  if options['commit_on_save'] then
-    options['commit_on_save'] = false
-    print('Commit on save is disabled.')
+  if options.commit_on_save then
+    options.commit_on_save = false
+    print('Commit on save is disabled')
   else
-    options['commit_on_save'] = true
+    options.commit_on_save = true
     require('git-scripts.utils').set_commit_autocmd()
-    print('Commit on save is enabled.')
+    print('Commit on save is enabled')
   end
 end
 
 -- Enable automatic asynchronous git commit on save.
 M.enable_auto_commit = function()
-  if not options['commit_on_save'] then
-    options['commit_on_save'] = true
+  if not options.commit_on_save then
+    options.commit_on_save = true
     require('git-scripts.utils').set_commit_autocmd()
-    print('Commit on save is enabled.')
+    print('Commit on save is enabled')
   else
-    print('Commit on save is already enabled.')
+    print('Commit on save is already enabled')
   end
 end
 
 -- Disable automatic asynchronous git commit on save.
 M.disable_auto_commit = function()
-  if options['commit_on_save'] then
-    options['commit_on_save'] = false
-    print('Commit on save is disabled.')
+  if options.commit_on_save then
+    options.commit_on_save = false
+    print('Commit on save is disabled')
   else
-    print('Commit on save is already disabled.')
+    print('Commit on save is already disabled')
   end
 end
 
