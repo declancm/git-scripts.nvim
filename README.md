@@ -89,7 +89,8 @@ require("git-scripts").disable_auto_commit()
 require('git-scripts').setup() {
   default_keymaps = true, -- Use default keymaps.
   commit_on_save = false, -- Automatically commit when saving the current buffer.
-  warnings = true, -- Display a warning on buffer entry when commit-on-save is active.
+  warnings = true,   -- Display a warning on buffer entry when commit-on-save is active.
+  remove_log = true, -- Delete the log file from cache when entering or exiting nvim.
 }
 ```
 
