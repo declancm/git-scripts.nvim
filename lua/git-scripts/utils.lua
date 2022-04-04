@@ -2,11 +2,14 @@ local M = {}
 
 local options = require('git-scripts').options
 
-M.error_msg = function(message, code)
+M.error_msg = function(message, code, color)
+  message = vim.fn.escape(message, '"\\')
   code = code or 'Error'
+  color = color or 'ErrorMsg'
   vim.cmd(
     string.format(
-      "echohl ErrorMsg | echom '%s: %s' | echohl None",
+      'echohl %s | echom "%s: %s" | echohl None',
+      color,
       code,
       message
     )

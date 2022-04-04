@@ -66,10 +66,10 @@ require("git-scripts").git_commit(message)
 -- Git pull with full error information on failure.
 require("git-scripts").git_pull()
 
--- Git commit and push asynchronously. Notify on failure. Error details are written to a log file.
+-- Git commit and push asynchronously. Error details are written to a log file.
 require("git-scripts").async_commit(message, directory)
 
--- Git pull asynchronously. Notify on failure. Error details are written to a log file.
+-- Git pull asynchronously. Error details are written to a log file.
 require("git-scripts").async_pull(directory)
 
 -- Toggle automatic asynchronous commit on save.
@@ -87,7 +87,7 @@ require("git-scripts").disable_auto_commit()
 ```lua
 -- Default options:
 require('git-scripts').setup() {
-  default_keymaps = true, -- Use default keymaps.
+  default_keymaps = true, -- Use the default keymaps.
   commit_on_save = false, -- Automatically commit when saving the current buffer.
   warnings = true,   -- Display a warning on buffer entry when commit-on-save is active.
   remove_log = true, -- Delete the log file from cache when entering or exiting nvim.

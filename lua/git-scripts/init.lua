@@ -9,8 +9,8 @@ M.setup = function(options)
 
   -- Check if user is on Windows.
   if vim.fn.has('win32') == 1 then
-    vim.cmd(
-      [[echohl ErrorMsg | echom "Error: A unix system is required for 'git-scripts' :(. Have you tried using WSL?" | echohl None]]
+    require('git-scripts.utils').error_msg(
+      "A unix system is required for 'git-scripts'. Have you tried using WSL?"
     )
     return
   end
