@@ -6,7 +6,7 @@ local utils = require('git-scripts.utils')
 -- Git commit.
 M.git_commit = function(message)
   -- Check if within a git directory.
-  if os.execute('git rev-parse --git-dir 2>/dev/null') ~= 0 then
+  if not os.execute('git rev-parse --git-dir 2>/dev/null') then
     utils.error_msg('You are not within a git repository')
     return
   end
@@ -27,7 +27,7 @@ end
 -- Git pull.
 M.git_pull = function()
   -- Check if within a git directory.
-  if os.execute('git rev-parse --git-dir 2>/dev/null') ~= 0 then
+  if not os.execute('git rev-parse --git-dir 2>/dev/null') then
     utils.error_msg('You are not within a git repository')
     return
   end
@@ -49,7 +49,7 @@ M.async_commit = function(message, directory)
     return
   end
   -- Check if within a git directory.
-  if os.execute('git rev-parse --git-dir 2>/dev/null') ~= 0 then
+  if not os.execute('git rev-parse --git-dir 2>/dev/null') then
     utils.error_msg('You are not within a git repository')
     return
   end
@@ -81,7 +81,7 @@ M.async_pull = function(directory)
     return
   end
   -- Check if within a git directory.
-  if os.execute('git rev-parse --git-dir 2>/dev/null') ~= 0 then
+  if not os.execute('git rev-parse --git-dir 2>/dev/null') then
     return
   end
   -- Perform the asynchronous git pull.
