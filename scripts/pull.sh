@@ -1,7 +1,7 @@
+#!/usr/bin/env bash
+
 # Created by Declan Mullen
 # Git repository can be found at: https://github.com/declancm/git-scripts.nvim
-
-#!/usr/bin/env bash
 
 (
     echo "Pull Log [`date -u +'%b %d %H:%M:%S %Y'`] :\n"
