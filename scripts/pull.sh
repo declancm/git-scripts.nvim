@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
+set -e
 
 # Created by Declan Mullen
 # Git repository can be found at: https://github.com/declancm/git-scripts.nvim
 
 (
-    echo "Pull Log [`date -u +'%b %d %H:%M:%S %Y'`] :\n"
+    echo "Pull Log [$(date -u +'%b %d %H:%M:%S %Y')] :\n"
     gitBranch=$(git rev-parse --abbrev-ref HEAD)
     gitDirectory=$(git rev-parse --show-toplevel)
-    cd $gitDirectory
+    cd "$gitDirectory"
     gitRemote=$(git remote)
-    git pull $gitRemote $gitBranch
-    cd $OLDPWD
+    git pull "$gitRemote" "$gitBranch"
+    cd "$OLDPWD"
 ) 2>&1 > ~/.cache/nvim/git-scripts.log
